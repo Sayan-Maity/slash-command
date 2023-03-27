@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [options, setOptions] = useState([]);
+
+  function handleInputChange(event) {
+    const value = event.target.value;
+    if (value.startsWith('/')) {
+      setOptions(['Heading', 'Sub-Heading', 'Italics', 'Bullets', 'Numbering']);
+    } else {
+      setOptions([]);
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="container">
+        <input type="text" onChange={handleInputChange} />
+        {options.length > 0 && (
+          <div className="options">
+            {options.map((option) => (
+              <div key={option}>{option}</div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
